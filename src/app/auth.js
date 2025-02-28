@@ -11,7 +11,6 @@ export const {
   providers: [
     CredentialProvider({
       name: "credentials",
-      //MY CODE
       // async authorize(credentials) {
       //   await DBConnection();
       //   console.log("loggedInUser_credentials", credentials);
@@ -31,7 +30,7 @@ export const {
       //   }
       // },
 
-      //YOUTUBE CODE
+      //or
       async authorize(credentials) {
         await DBConnection();
         console.log("loggedInUser_credentials", credentials);

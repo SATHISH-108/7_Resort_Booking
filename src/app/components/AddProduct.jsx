@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import admin from "./components.module.css";
-import productAction from "../serveractions/productAction";
 const AddProduct = () => {
   const [product, setProduct] = useState({
     title: "",
