@@ -8,7 +8,9 @@ const ProductCollection = () => {
   const [loading, setLoading] = useState(true);
   const collectionHandler = async () => {
     try {
-      let response = await fetch("http://localhost:3000/api/admin/add-product");
+      let response = await fetch(
+        "https://nextjs-resort-booking.vercel.app/api/admin/add-product"
+      );
       const newData = await response.json();
       // console.log("newData", newData);
       setLoading(false);

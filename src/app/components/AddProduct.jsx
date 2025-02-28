@@ -24,7 +24,7 @@ const AddProduct = () => {
     // console.log("addProduct_data", data);
     try {
       const response = await fetch(
-        `http://localhost:3000/api/admin/add-product`,
+        `https://nextjs-resort-booking.vercel.app/api/admin/add-product`,
         {
           method: "POST",
           body: data,
