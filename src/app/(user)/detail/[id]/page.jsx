@@ -15,7 +15,7 @@ const page = () => {
   const route = useRouter();
   const dynamicProductHandler = async () => {
     const response = await fetch(
-      `http://localhost:3000/api/admin/product/${id}`
+      `https://nextjs-resort-booking.vercel.app/api/admin/product/${id}`
     );
     const newData = await response.json();
     setRecord(newData.data);
