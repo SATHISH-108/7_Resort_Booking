@@ -8,6 +8,7 @@ const BookingSchema = new mongoose.Schema({
   offer: { type: String },
   image: { type: String, required: true },
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  // user: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
 });
 const BookingModel =
   mongoose.models.booking || mongoose.model("booking", BookingSchema);
