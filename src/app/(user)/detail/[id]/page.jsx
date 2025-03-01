@@ -15,7 +15,7 @@ const page = () => {
   const route = useRouter();
   const dynamicProductHandler = async () => {
     const response = await fetch(
-      `https://nextjs-resort-booking.vercel.app/admin/product/${id}`
+      `http://localhost:3000/api/admin/product/${id}`
     );
     const newData = await response.json();
     setRecord(newData.data);
@@ -49,7 +49,7 @@ const page = () => {
   };
   const handleDateSelect = (dates) => {
     setSelectedDates(dates);
-    console.log("dates coming from calenderComponent ", dates);
+    // console.log("dates coming from calenderComponent ", dates);
   };
   return (
     <div>

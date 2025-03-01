@@ -13,32 +13,35 @@ export async function GET() {
 export async function POST(request) {
   // console.log("add-product request", request);
   await DBConnection();
-  const data = await request.formData();
-  //formData() it is in-built function or(module)
-  // console.log("add-product: data", data);
-  // FormData {  title: 'luxury room',   price: '30000',  offer: '10',
-  //   description: '', amenitie: '',  image: File {
-  //     size: 37934, type: 'image/jpeg', name: 'Life_Quote.jpg',
-  //     lastModified: 1739974252063
-  //   }
-  // }
-
-  const title = data.get("title");
-  const price = data.get("price");
-  const offer = data.get("offer");
-  const amenitie = data.get("amenitie");
-  const description = data.get("description");
-  const image = data.get("image");
-  //console.log("image", image); //File {size: 37934,type: 'image/jpeg',name: 'Life_Quote.jpg',lastModified: 1739982004947}
-  const bufferData = await image.arrayBuffer();
-  // console.log("bufferData", bufferData);
-  const buffer = Buffer.from(bufferData);
-  const imagePath = path.join(process.cwd(), "public", "uploads", image.name);
-  // console.log("add-product-route-data", data);
-  //FormData { title: 'luxury room',  price: '1800', offer: '10', description: 'jkdjkkjc,',amenitie: 'swimmingpool',
-  //image: File {size: 37934, type: 'image/jpeg', name: 'Life_Quote.jpg', lastModified: 1739982555358}}
-
   try {
+    const data = await request.formData();
+    //formData() it is in-built function or(module)
+    // console.log("add-product: data", data);
+    // FormData {  title: 'luxury room',   price: '30000',  offer: '10',
+    //   description: '', amenitie: '',  image: File {
+    //     size: 37934, type: 'image/jpeg', name: 'Life_Quote.jpg',
+    //     lastModified: 1739974252063
+    //   }
+    // }
+
+    const title = data.get("title");
+    const price = data.get("price");
+    const offer = data.get("offer");
+    const amenitie = data.get("amenitie");
+    const description = data.get("description");
+    const image = data.get("image");
+    //console.log("image", image); //File {size: 37934,type: 'image/jpeg',name: 'Life_Quote.jpg',lastModified: 1739982004947}
+    if (!image) {
+      throw new Error("No image file provided");
+    }
+    const bufferData = await image.arrayBuffer();
+    // console.log("bufferData", bufferData);
+    const buffer = Buffer.from(bufferData);
+    const imagePath = path.join(process.cwd(), "public", "uploads", image.name);
+    // console.log("add-product-route-data", data);
+    //FormData { title: 'luxury room',  price: '1800', offer: '10', description: 'jkdjkkjc,',amenitie: 'swimmingpool',
+    //image: File {size: 37934, type: 'image/jpeg', name: 'Life_Quote.jpg', lastModified: 1739982555358}}
+
     await writeFile(imagePath, buffer);
     const newProduct = new ProductModel({
       title: title,
@@ -64,7 +67,10 @@ export async function POST(request) {
       { status: 201 }
     );
   } catch (error) {
-    console.log(error);
-    return NextResponse.json({ success: false }, { status: 500 });
+    console.log("Error in POST /api/admin/add-product:", error);
+    return NextResponse.json(
+      { success: false, error: error.message },
+      { status: 500 }
+    );
   }
 }

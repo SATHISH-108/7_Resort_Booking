@@ -24,12 +24,15 @@ const AddProduct = () => {
     // console.log("addProduct_data", data);
     try {
       const response = await fetch(
-        `https://nextjs-resort-booking.vercel.app/api/admin/add-product`,
+        `http://localhost:3000/api/admin/add-product`,
         {
           method: "POST",
           body: data,
         }
       );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
       const result = await response.json();
       if (result.success) {
         alert("Record Added Successfully");
@@ -44,7 +47,8 @@ const AddProduct = () => {
         });
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error in recordHandler:", error);
+      alert("Failed to add record, try again");
     }
   };
   return (
